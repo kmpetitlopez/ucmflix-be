@@ -78,7 +78,7 @@ router.get('/contents/:id/categories', async (req, res, next) => {
 
 router.get('/contents/:id/vod-events', async (req, res, next) => {
     try {
-        const service = require('../services/list-content-vodEvents.service'),
+        const service = require('../services/list-content-vod-events.service'),
             response = await service.listContentVodEvents(
                 req && req.params && req.params.id,
                 req && req.query);
