@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 app.use(logger);
 
 app.use('/', routes);
-app.use('/static', express.static( path.join(__dirname, 'videos')));
+app.use('/static', express.static( path.join(__dirname, 'static')));
 
 app.use(errorHandler);
 
