@@ -1,8 +1,8 @@
 'use strict';
 
-const Battles = require('./BattlesCtrl'),
+const Contents = require('./ContentsCtrl'),
     router = require('express').Router();
 
-router.use('/', Battles);
+router.use('/', Contents);
 
 module.exports = router;

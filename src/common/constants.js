@@ -1,0 +1,39 @@
+'use strict';
+
+module.exports = {
+    DEFAULT_LIMIT: 20,
+
+    DEFAULT_OFFSET: 0,
+
+    HTTP_SUCCESS_CODES: {
+        OK: 200,
+        RESOURCE_CREATED: 201,
+        RESOURCE_DELETED: 204,
+        NO_CONTENT: 204
+    },
+
+    HTTP_ERROR_CODES: {
+        BAD_REQUEST: 400,
+        EXTERNAL_REDIRECTION_IMAGES: 302,
+        UNAUTHORIZED: 401,
+        FORBIDDEN: 403,
+        NOT_FOUND: 404,
+        METHOD_NOT_ALLOWED: 405,
+        CONFLICT: 409,
+        INTERNAL_SERVER_ERROR: 500,
+        SERVICE_UNAVAILABLE: 503,
+        GATEWAY_TIMEOUT: 504
+    },
+
+    ERROR_MESSAGES: {
+        UNKNOWN_SUBERROR_MESSAGE: 'UNKNOWN_SUBERROR_MESSAGE',
+        ENTITY_NOT_FOUND: 'ENTITY_NOT_FOUND',
+        VALIDATION_ERROR: 'VALIDATION_ERROR',
+        INVALID_PARAMETERS: 'INVALID_PARAMETERS'
+    },
+
+    DIRECTION: {
+        next: 'next',
+        prev: 'prev'
+    }
+};

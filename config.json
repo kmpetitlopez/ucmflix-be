@@ -1,12 +1,21 @@
 {
-    "local": {
-        "username": "game_of_thrones",
-        "password": "game_of_thrones",
-        "database": "game_of_thrones",
-        "host": "localhost",
-        "port": "3306",
-        "dialect": "mysql",
-        "storage": "mysql",
-        "logging": false
+    "development": {
+      "username": "ucmflix_test",
+      "password": "ucmflix_test",
+      "database": "ucmflix_test",
+      "host": "localhost",
+      "port": "3306",
+      "dialect": "mysql",
+      "storage": "mysql",
+      "logging": false,
+      "retry": {
+        "max": 3,
+        "timeout": 62000,
+        "match": [
+          "DEADLOCK",
+          "TIMEOUT"
+        ]
+      }
     }
-}
+  }
+  

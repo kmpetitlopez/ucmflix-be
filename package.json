@@ -1,6 +1,6 @@
 {
   "name": "ucmflix-be",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "BE of the ucmflix app",
   "eslintConfig": {
     "env": {
@@ -9,7 +9,8 @@
     }
   },
   "scripts": {
-    "test": ""
+    "test": "sequelize db:migrate --config ./config.json --migrations-path ./node_modules/ucmflix-db/src/migrations/ && CONFIG_FILE=`pwd`/spec/support/config.json ./node_modules/.bin/jasmine",
+    "start": "node ./src/index.js"
   },
   "author": "Kira Petit",
   "license": "ISC",
@@ -17,10 +18,13 @@
     "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
-    "nodemailer": "^6.4.5"
+    "nodemailer": "^6.4.5",
+    "ucmflix-db": "file:../ucmflix-db",
+    "underscore": "^1.9.2"
   },
   "devDependencies": {
     "eslint-config-google": "^0.14.0",
