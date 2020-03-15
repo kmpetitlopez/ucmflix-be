@@ -3,7 +3,7 @@
 const db = require('ucmflix-db'),
     CONSTANTS = require('../common/constants');
 
-exports.getAsset = async (id) => {
+exports.getImageReference = async (id) => {
     try {
         if (!id) {
             throw new Error(JSON.stringify({
@@ -12,16 +12,16 @@ exports.getAsset = async (id) => {
             }));
         }
 
-        const asset = await db.asset.findByPk(parseInt(id));
+        const imageReference = await db.imageReference.findByPk(parseInt(id));
 
-        if (!asset) {
+        if (!imageReference) {
             throw new Error(JSON.stringify({
                 code: CONSTANTS.HTTP_ERROR_CODES.NOT_FOUND,
                 message: CONSTANTS.ERROR_MESSAGES.ENTITY_NOT_FOUND
             }));
         }
 
-        return asset.get({plain: true});
+        return imageReference.get({plain: true});
     } catch (err) {
         throw err;
     }
