@@ -1,0 +1,21 @@
+{
+    "tags": {
+        "allowUnknownTags": true,
+        "dictionaries": ["jsdoc","closure"]
+    },
+    "source": {
+        "include": ["app"],
+        "includePattern": ".+\\.js(doc|x)?$",
+        "excludePattern": "(^|\\/|\\\\)_"
+    },
+    "opts": {
+        "template": "./node_modules/jaguarjs-jsdoc",
+        "destination": "./docs/",
+        "encoding": "utf8",
+        "debug": true,
+        "recurse": true
+    },
+    "templates": {
+        "cleverLinks": true
+    }
+}

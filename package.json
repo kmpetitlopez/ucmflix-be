@@ -1,0 +1,45 @@
+{
+  "name": "ucmflix-be",
+  "version": "0.0.1",
+  "description": "BE of the ucmflix app",
+  "eslintConfig": {
+    "env": {
+      "node": true,
+      "jasmine": true
+    }
+  },
+  "scripts": {
+    "test": ""
+  },
+  "author": "Kira Petit",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^4.0.1",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "lodash": "^4.17.15",
+    "moment": "^2.24.0",
+    "nodemailer": "^6.4.5"
+  },
+  "devDependencies": {
+    "eslint-config-google": "^0.14.0",
+    "grunt": "^1.0.4",
+    "grunt-contrib-symlink": "^1.0.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-env": "^1.0.1",
+    "grunt-eslint": "^22.0.0",
+    "grunt-gitinfo": "^0.1.9",
+    "istanbul": "^0.4.5",
+    "jasmine": "^3.5.0",
+    "jasmine-console-reporter": "^3.1.0",
+    "jsdoc": "^3.6.3",
+    "load-grunt-config": "^3.0.1",
+    "load-grunt-tasks": "^5.1.0",
+    "plato": "^1.7.0",
+    "sequelize-cli": "^5.5.1",
+    "time-grunt": "^1.4.0",
+    "userhome": "^1.0.0"
+  }
+}
