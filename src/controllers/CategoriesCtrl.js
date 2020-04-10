@@ -62,4 +62,16 @@ router.delete('/categories/:id', async (req, res, next) => {
     }
 });
 
+router.get('/categories/:id/contents', async (req, res, next) => {
+    try {
+        const service = require('../services/list-category-contents.service'),
+            response = await service.listCategoryContents(req && req.params && req.params.id, req && req.query);
+
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({response}));
+    } catch (err) {
+        return next(err);
+    }
+});
+
 module.exports = router;

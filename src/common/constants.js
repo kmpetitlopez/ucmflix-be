@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-    DEFAULT_LIMIT: 20,
+    DEFAULT_LIMIT: 50,
 
     DEFAULT_OFFSET: 0,
 

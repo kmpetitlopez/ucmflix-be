@@ -90,10 +90,10 @@ router.get('/contents/:id/vod-events', async (req, res, next) => {
     }
 });
 
-router.get('/contents/:id/images', async (req, res, next) => {
+router.get('/contents/:id/episodes', async (req, res, next) => {
     try {
-        const service = require('../services/list-content-images.service'),
-            response = await service.listContentImages(
+        const service = require('../services/list-content-episodes.service'),
+            response = await service.listContentEpisodes(
                 req && req.params && req.params.id,
                 req && req.query);
 
@@ -104,10 +104,10 @@ router.get('/contents/:id/images', async (req, res, next) => {
     }
 });
 
-router.get('/contents/:id/assets', async (req, res, next) => {
+router.get('/contents/:id/seasons', async (req, res, next) => {
     try {
-        const service = require('../services/list-content-assets.service'),
-            response = await service.listContentAssets(
+        const service = require('../services/list-content-seasons.service'),
+            response = await service.listContentSeasons(
                 req && req.params && req.params.id,
                 req && req.query);
 
