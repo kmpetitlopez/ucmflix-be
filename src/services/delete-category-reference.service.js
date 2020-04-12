@@ -3,25 +3,30 @@
 const db = require('ucmflix-db'),
     CONSTANTS = require('../common/constants');
 
-exports.deleteCategoryReference = async (id) => {
+exports.deleteCategoryReference = async (args) => {
     try {
-        if (!id) {
+        if (!args) {
             throw new Error(JSON.stringify({
                 code: CONSTANTS.HTTP_ERROR_CODES.BAD_REQUEST,
                 message: CONSTANTS.ERROR_MESSAGES.INVALID_PARAMETERS
             }));
         }
 
-        const categoryReference = await db.categoryReference.findByPk(parseInt(id));
+        const query = {
+            where: {}
+        };
 
-        if (!categoryReference) {
-            throw new Error({
-                code: CONSTANTS.HTTP_ERROR_CODES.NOT_FOUND,
-                message: CONSTANTS.ERROR_MESSAGES.ENTITY_NOT_FOUND
-            });
+        if (args) {
+            if (args.categoryId) {
+                query.where.categoryId = args.categoryId;
+            }
+
+            if (args.contentId) {
+                query.where.contentId = args.contentId;
+            }
         }
 
-        return categoryReference.destroy();
+        return db.categoryReference.destroy(query);
     } catch (err) {
         throw err;
     }

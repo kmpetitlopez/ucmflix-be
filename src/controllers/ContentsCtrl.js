@@ -26,6 +26,18 @@ router.post('/contents', async (req, res, next) => {
     }
 });
 
+router.get('/contents/empty-categories', async (req, res, next) => {
+    try {
+        const service = require('../services/list-content-empty-categories.service'),
+            response = await service.listContentWithoutCategories();
+
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({response}));
+    } catch (err) {
+        return next(err);
+    }
+});
+
 router.get('/contents/:id', async (req, res, next) => {
     try {
         const service = require('../services/get-content.service'),

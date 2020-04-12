@@ -15,6 +15,20 @@ exports.listCategory = async (args) => {
         };
 
         if (args) {
+            if (args.name) {
+                query.where.name = db.sequelize.where(
+                    db.sequelize.fn(
+                        'lower',
+                        db.sequelize.col('name')
+                    ),
+                    {
+                        [Op.like]: urlUtils.likePercents(
+                            args.name.toLowerCase()
+                        )
+                    }
+                );
+            }
+
             if (args.date || args.activeCategories) {
                 const date = (args.date && moment.utc(args.date).format()) || moment.utc().format();
 

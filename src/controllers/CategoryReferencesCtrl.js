@@ -50,10 +50,10 @@ router.put('/category-references/:id', async (req, res, next) => {
     }
 });
 
-router.delete('/category-references/:id', async (req, res, next) => {
+router.delete('/category-references', async (req, res, next) => {
     try {
         const service = require('../services/delete-category-reference.service'),
-            response = await service.deleteCategoryReference(req && req.params && req.params.id);
+            response = await service.deleteCategoryReference(req && req.query);
 
         res.setHeader('Content-Type', 'application/json');
         res.end(JSON.stringify({response}));
