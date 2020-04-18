@@ -130,4 +130,18 @@ router.get('/contents/:id/seasons', async (req, res, next) => {
     }
 });
 
+router.get('/contents/:id/image', async (req, res, next) => {
+    try {
+        const service = require('../services/list-content-images.service'),
+            response = await service.listContentImages(
+                req && req.params && req.params.id,
+                req && req.query);
+
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({response}));
+    } catch (err) {
+        return next(err);
+    }
+});
+
 module.exports = router;
