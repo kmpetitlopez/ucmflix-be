@@ -14,10 +14,6 @@ node_modules/
 dist/
 .grunt/
 
-# secret files
-config/*.json
-aws_config.json
-
 src/static/*
 
 .env
