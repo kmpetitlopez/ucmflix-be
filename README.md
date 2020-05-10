@@ -46,6 +46,9 @@ BASE_URL=http://localhost:3000
 npm run start
 ```
 
+## Test BE
+- Import the postman collection stored in the _postman_ folder to validate everything is configured correctly.
+
 ## Dependencies
 
 - [body-parser](https://github.com/expressjs/body-parser)

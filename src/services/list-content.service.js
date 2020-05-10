@@ -9,8 +9,8 @@ const db = require('ucmflix-db'),
 exports.listContent = async (args) => {
     try {
         const query = {
-            limit: (args.limit && parseInt(args.limit)) || CONSTANTS.DEFAULT_LIMIT,
-            offset: args.offset || CONSTANTS.DEFAULT_OFFSET,
+            limit: args.limit,
+            offset: args.offset,
             where: {}
         };
 

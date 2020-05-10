@@ -1,0 +1,1784 @@
+{
+	"info": {
+		"_postman_id": "92210fdb-9e98-40ee-bd2f-8297a717b36e",
+		"name": "TFG",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Images CRUD",
+			"item": [
+				{
+					"name": "Create Image",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7379f470-daad-4e5f-b1a6-d6c4c5daf8a2",
+								"exec": [
+									"let response = (pm.response.json()).response;",
+									"",
+									"pm.collectionVariables.set(\"imageId\", response.id);",
+									"",
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Prueba Imagen\",\n    \"uri\": \"/static/images/prueba.jpg\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domainName}}/images",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"images"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Image",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e9cdce75-3964-40bc-adcc-6197217e1fb1",
+								"exec": [
+									"let response = (pm.response.json()).response,",
+									"    imageId = pm.collectionVariables.get(\"imageId\");",
+									"",
+									"pm.test(\"Successful GET request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"    pm.expect(response.id).to.equal(parseInt(imageId));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domainName}}/images/{{imageId}}",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"images",
+								"{{imageId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Image",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9ca654ad-617a-4990-af39-642090c090ba",
+								"exec": [
+									"let response = (pm.response.json()).response,",
+									"    imageName = pm.collectionVariables.get(\"imageName\");",
+									"",
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"    pm.expect(response.name).to.equal(imageName);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{imageName}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domainName}}/images/{{imageId}}",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"images",
+								"{{imageId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List images",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2a5afd71-0c2d-4c92-9100-c6974d792d21",
+								"exec": [
+									"let response = (pm.response.json()).response,",
+									"    limit = pm.collectionVariables.get(\"limit\");",
+									"",
+									"pm.test(\"Successful LIST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"    pm.expect(response.count).to.be.above(0);",
+									"    pm.expect(response.items.length).to.equal(parseInt(limit));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domainName}}/images?limit={{limit}}",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"images"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Image",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bff32385-9ce8-4872-bbc0-d639a4894194",
+								"exec": [
+									"pm.test(\"Successful DELETE request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{domainName}}/images/{{imageId}}",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"images",
+								"{{imageId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Image After Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "08945852-7f63-4638-b9c4-28462d4d5be2",
+								"exec": [
+									"pm.test(\"Not Found GET request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([404]);",
+									"});",
+									"",
+									"pm.collectionVariables.unset(\"imageId\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domainName}}/images/{{imageId}}",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"images",
+								"{{imageId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Categories CRUD",
+			"item": [
+				{
+					"name": "Create Category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "624c1563-1a59-4107-bb03-40975c383760",
+								"exec": [
+									"let response = (pm.response.json()).response;",
+									"",
+									"pm.collectionVariables.set(\"categoryId\", response.id);",
+									"",
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Prueba Categoria\",\n    \"startDate\": \"2020-05-10\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domainName}}/categories",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c3331a6f-b030-4042-96ea-d31807362bb6",
+								"exec": [
+									"let response = (pm.response.json()).response,",
+									"    categoryId = pm.collectionVariables.get(\"categoryId\");",
+									"",
+									"pm.test(\"Successful GET request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"    pm.expect(response.id).to.equal(parseInt(categoryId));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domainName}}/categories/{{categoryId}}",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"categories",
+								"{{categoryId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b50c8614-bc27-49f9-88b4-edc32f6df81c",
+								"exec": [
+									"let response = (pm.response.json()).response,",
+									"    categoryName = pm.collectionVariables.get(\"categoryName\");",
+									"",
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"    pm.expect(response.name).to.equal(categoryName);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{categoryName}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domainName}}/categories/{{categoryId}}",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"categories",
+								"{{categoryId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Categories",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b6e74bdd-a23e-40f5-a909-c613b56ea892",
+								"exec": [
+									"let response = (pm.response.json()).response,",
+									"    limit = pm.collectionVariables.get(\"limit\");",
+									"",
+									"pm.test(\"Successful LIST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"    pm.expect(response.count).to.be.above(0);",
+									"    pm.expect(response.items.length).to.equal(parseInt(limit));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domainName}}/categories?limit={{limit}}",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"categories"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7b434eb8-8cb9-4e76-8cb5-fe342ec04b6c",
+								"exec": [
+									"pm.test(\"Successful DELETE request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{domainName}}/categories/{{categoryId}}",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"categories",
+								"{{categoryId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category After Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "04e581eb-65f9-47a1-9035-e2446e06c8b4",
+								"exec": [
+									"pm.test(\"Not Found GET request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([404]);",
+									"});",
+									"",
+									"pm.collectionVariables.unset(\"categoryId\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domainName}}/categories/{{categoryId}}",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"categories",
+								"{{categoryId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Contents CRUD",
+			"item": [
+				{
+					"name": "Create Content",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e5787e1c-fc94-49c6-a5ce-f7b0f1eb1dc1",
+								"exec": [
+									"let response = (pm.response.json()).response;",
+									"",
+									"pm.collectionVariables.set(\"contentId\", response.id);",
+									"",
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"special\",\n    \"title\": \"Prueba Contenido\",\n    \"description\": \"abc\",\n    \"year\": 2020,\n    \"genre\": \"abc\",\n    \"duration\": 120,\n    \"parentalRating\": \"SC\",\n    \"country\": \"ESP\",\n    \"asset\": \"abc\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domainName}}/contents",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"contents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Content",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f93631a9-05cf-4e7a-a917-cc91639a5661",
+								"exec": [
+									"let response = (pm.response.json()).response,",
+									"    contentId = pm.collectionVariables.get(\"contentId\");",
+									"",
+									"pm.test(\"Successful GET request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"    pm.expect(response.id).to.equal(parseInt(contentId));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domainName}}/contents/{{contentId}}",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"contents",
+								"{{contentId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Content",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "364a21cc-d0a8-4cf2-b77a-60f560919ccb",
+								"exec": [
+									"let response = (pm.response.json()).response,",
+									"    contentName = pm.collectionVariables.get(\"contentName\");",
+									"",
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"    pm.expect(response.title).to.equal(contentName);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"{{contentName}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domainName}}/contents/{{contentId}}",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"contents",
+								"{{contentId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Contents",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a8442b85-27ab-470a-bf69-d4fac9426800",
+								"exec": [
+									"let response = (pm.response.json()).response,",
+									"    limit = pm.collectionVariables.get(\"limit\");",
+									"",
+									"pm.test(\"Successful LIST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"    pm.expect(response.count).to.be.above(0);",
+									"    pm.expect(response.items.length).to.equal(parseInt(limit));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domainName}}/contents?limit={{limit}}",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"contents"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Contents Without Categories",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d9092164-dda3-4915-9b93-19b69a4dba3d",
+								"exec": [
+									"let response = (pm.response.json()).response,",
+									"    limit = pm.collectionVariables.get(\"limit\");",
+									"",
+									"pm.test(\"Successful LIST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"    pm.expect(response.items.length).to.equal(parseInt(limit));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domainName}}/contents/empty-categories?limit={{limit}}",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"contents",
+								"empty-categories"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Content",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "29f414ae-9b3a-49ca-9d81-ec6034f6a7cb",
+								"exec": [
+									"pm.test(\"Successful DELETE request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{domainName}}/contents/{{contentId}}",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"contents",
+								"{{contentId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Content After Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "633a793f-5b58-4831-b12e-500d4c811a66",
+								"exec": [
+									"pm.test(\"Not Found GET request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([404]);",
+									"});",
+									"",
+									"pm.collectionVariables.unset(\"contentId\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domainName}}/contents/{{contentId}}",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"contents",
+								"{{contentId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "VodEvents CRUD",
+			"item": [
+				{
+					"name": "Create Content For VodEvent",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "63d7931b-8423-4bb1-8ce6-7edd8e42b8ef",
+								"exec": [
+									"let response = (pm.response.json()).response;",
+									"",
+									"pm.collectionVariables.set(\"contentId\", response.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"special\",\n    \"title\": \"Prueba Contenido\",\n    \"description\": \"abc\",\n    \"year\": 2020,\n    \"genre\": \"abc\",\n    \"duration\": 120,\n    \"parentalRating\": \"SC\",\n    \"country\": \"ESP\",\n    \"asset\": \"abc\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domainName}}/contents",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"contents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create VodEvent",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "80b360f1-4c49-42b4-906b-0f37a97bdc4e",
+								"exec": [
+									"let response = (pm.response.json()).response;",
+									"",
+									"pm.collectionVariables.set(\"vodEventId\", response.id);",
+									"",
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n    \"windowStartTime\": \"2020-05-10T00:00:00.000Z\",\n    \"contentId\": \"{{contentId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domainName}}/vod-events",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"vod-events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get VodEvent",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7ace843a-8fff-41f2-8fac-38e4c976a2c9",
+								"exec": [
+									"let response = (pm.response.json()).response,",
+									"    vodEventId = pm.collectionVariables.get(\"vodEventId\");",
+									"",
+									"pm.test(\"Successful GET request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"    pm.expect(response.id).to.equal(parseInt(vodEventId));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domainName}}/vod-events/{{vodEventId}}",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"vod-events",
+								"{{vodEventId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update VodEvent",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6be315d0-ee08-4906-98e6-cc2e5ccb4e0a",
+								"exec": [
+									"let response = (pm.response.json()).response,",
+									"    startDate = pm.collectionVariables.get(\"startDate\");",
+									"",
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"    pm.expect(response.windowStartTime).to.equal(startDate);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"windowStartTime\": \"{{startDate}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domainName}}/vod-events/{{vodEventId}}",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"vod-events",
+								"{{vodEventId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List VodEvents",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c94b7d11-0bf1-4d73-a3a8-40efb4f39727",
+								"exec": [
+									"let response = (pm.response.json()).response,",
+									"    limit = pm.collectionVariables.get(\"limit\");",
+									"",
+									"pm.test(\"Successful LIST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"    pm.expect(response.count).to.be.above(0);",
+									"    pm.expect(response.items.length).to.equal(parseInt(limit));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domainName}}/vod-events?limit={{limit}}",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"vod-events"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete VodEvent",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bc5ba71f-c4d8-49f0-aefb-c7c4de0e84a0",
+								"exec": [
+									"pm.test(\"Successful DELETE request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{domainName}}/vod-events/{{vodEventId}}",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"vod-events",
+								"{{vodEventId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get VodEvent After Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8dc131be-b0ba-42ee-8527-58b58b3014ad",
+								"exec": [
+									"pm.test(\"Not Found GET request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([404]);",
+									"});",
+									"",
+									"pm.collectionVariables.unset(\"vodEventId\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domainName}}/vod-events/{{vodEventId}}",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"vod-events",
+								"{{vodEventId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c799d6fc-00b8-4746-9abc-a14ee68328c8",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "de69044d-4bd1-4c8a-94e0-10830b926311",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "CategoryReferences CRUD",
+			"item": [
+				{
+					"name": "Create Content For CategoryReference",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cc938bfb-472c-46e8-9b10-0cbd58dbd107",
+								"exec": [
+									"let response = (pm.response.json()).response;",
+									"",
+									"pm.collectionVariables.set(\"contentId\", response.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"special\",\n    \"title\": \"Prueba Contenido\",\n    \"description\": \"abc\",\n    \"year\": 2020,\n    \"genre\": \"abc\",\n    \"duration\": 120,\n    \"parentalRating\": \"SC\",\n    \"country\": \"ESP\",\n    \"asset\": \"abc\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domainName}}/contents",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"contents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Category For CategoryReference",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "455bb5e3-6aa1-4dc0-9349-8ae1abefb7ae",
+								"exec": [
+									"let response = (pm.response.json()).response;",
+									"",
+									"pm.collectionVariables.set(\"categoryId\", response.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Prueba Categoria\",\n    \"startDate\": \"2020-05-10\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domainName}}/categories",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create CategoryReference",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "065ba3d3-ece4-4aea-94f3-335e797b5aad",
+								"exec": [
+									"let response = (pm.response.json()).response;",
+									"",
+									"pm.collectionVariables.set(\"categoryReferenceId\", response.id);",
+									"",
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"categoryId\": \"{{categoryId}}\",\n    \"contentId\": \"{{contentId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domainName}}/category-references",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"category-references"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List CategoryReferences",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e8f49791-cd47-4fa1-82ac-208868309df4",
+								"exec": [
+									"let response = (pm.response.json()).response,",
+									"    limit = pm.collectionVariables.get(\"limit\");",
+									"",
+									"pm.test(\"Successful LIST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"    pm.expect(response.count).to.be.above(0);",
+									"    pm.expect(response.items.length).to.equal(parseInt(limit));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domainName}}/category-references?limit={{limit}}",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"category-references"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Content Categories",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b76b2c10-c25d-48a6-a203-357a91061067",
+								"exec": [
+									"let response = (pm.response.json()).response,",
+									"    limit = pm.collectionVariables.get(\"limit\"),",
+									"    firstElement = response.items && response.items[0],",
+									"    contentId = pm.collectionVariables.get(\"contentId\");",
+									"",
+									"pm.test(\"Successful LIST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"    pm.expect(response.count).to.be.above(0);",
+									"    pm.expect(response.items.length).to.equal(parseInt(limit));",
+									"    pm.expect(firstElement.contentId).to.equal(parseInt(contentId));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domainName}}/contents/{{contentId}}/categories?limit={{limit}}",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"contents",
+								"{{contentId}}",
+								"categories"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Category Contents",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f1c332c6-e4f2-4f98-8546-9b913ed7eaf6",
+								"exec": [
+									"let response = (pm.response.json()).response,",
+									"    limit = pm.collectionVariables.get(\"limit\"),",
+									"    firstElement = response.items && response.items[0],",
+									"    categoryId = pm.collectionVariables.get(\"categoryId\");",
+									"",
+									"pm.test(\"Successful LIST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"    pm.expect(response.count).to.be.above(0);",
+									"    pm.expect(response.items.length).to.equal(parseInt(limit));",
+									"    pm.expect(firstElement.categoryId).to.equal(parseInt(categoryId));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domainName}}/categories/{{categoryId}}/contents?limit={{limit}}",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"categories",
+								"{{categoryId}}",
+								"contents"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Master Content",
+			"item": [
+				{
+					"name": "Create Master",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7326e6dc-35a2-4f1f-a7b1-3652e02e58e6",
+								"exec": [
+									"let response = (pm.response.json()).response;",
+									"",
+									"pm.collectionVariables.set(\"masterId\", response.id);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"master\",\n    \"title\": \"Prueba Contenido\",\n    \"description\": \"abc\",\n    \"year\": 2020,\n    \"genre\": \"abc\",\n    \"duration\": 120,\n    \"parentalRating\": \"SC\",\n    \"country\": \"ESP\",\n    \"asset\": \"abc\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domainName}}/contents",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"contents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Episode",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "591c1468-56ec-461a-9b00-c6aafd1e35b3",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"episode\",\n    \"title\": \"Prueba Contenido\",\n    \"description\": \"abc\",\n    \"year\": 2020,\n    \"genre\": \"abc\",\n    \"duration\": 120,\n    \"parentalRating\": \"SC\",\n    \"country\": \"ESP\",\n    \"asset\": \"abc\",\n    \"episodeNumber\": 1,\n    \"seasonNumber\": 1,\n    \"masterId\": \"{{masterId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domainName}}/contents",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"contents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Master Season",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7864c32e-f18b-4a98-985a-00e19b895485",
+								"exec": [
+									"let response = (pm.response.json()).response,",
+									"    limit = pm.collectionVariables.get(\"limit\"),",
+									"    season = response.items && response.items[0],",
+									"    masterId = pm.collectionVariables.get(\"masterId\");",
+									"",
+									"pm.test(\"Successful LIST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"    pm.expect(response.count).to.be.above(0);",
+									"    pm.expect(response.items.length).to.equal(parseInt(limit));",
+									"    pm.expect(season.masterId).to.equal(parseInt(masterId));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domainName}}/contents/{{masterId}}/seasons?limit={{limit}}",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"contents",
+								"{{masterId}}",
+								"seasons"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Master Episode",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e28d0594-1ad6-45d5-959c-0faa0f5afd16",
+								"exec": [
+									"let response = (pm.response.json()).response,",
+									"    limit = pm.collectionVariables.get(\"limit\"),",
+									"    episode = response.items && response.items[0],",
+									"    masterId = pm.collectionVariables.get(\"masterId\");",
+									"",
+									"pm.test(\"Successful LIST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"    pm.expect(response.count).to.be.above(0);",
+									"    pm.expect(response.items.length).to.equal(parseInt(limit));",
+									"    pm.expect(episode.masterId).to.equal(parseInt(masterId));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domainName}}/contents/{{masterId}}/episodes?limit={{limit}}",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"contents",
+								"{{masterId}}",
+								"episodes"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Content Associations",
+			"item": [
+				{
+					"name": "Create Image",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "efadbea9-23d4-4c18-aa80-283f433a2296",
+								"exec": [
+									"let response = (pm.response.json()).response;",
+									"",
+									"pm.collectionVariables.set(\"imageId\", response.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Prueba Imagen\",\n    \"uri\": \"/static/images/prueba.jpg\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domainName}}/images",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"images"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Content",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ce4f8a83-141c-4075-a9c8-f08cc465fa4a",
+								"exec": [
+									"let response = (pm.response.json()).response;",
+									"",
+									"pm.collectionVariables.set(\"contentId\", response.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"special\",\n    \"title\": \"Prueba Contenido\",\n    \"description\": \"abc\",\n    \"year\": 2020,\n    \"genre\": \"abc\",\n    \"duration\": 120,\n    \"parentalRating\": \"SC\",\n    \"country\": \"ESP\",\n    \"asset\": \"abc\",\n    \"imageId\": \"{{imageId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domainName}}/contents",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"contents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create VodEvent",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "18843850-6abb-41a0-9e59-f6c6f445f17c",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n    \"windowStartTime\": \"2020-07-10T00:00:00.000Z\",\n    \"contentId\": \"{{contentId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domainName}}/vod-events",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"vod-events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Content Images",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "616155b8-77f2-49a8-a879-cc98bc5c5ee6",
+								"exec": [
+									"let response = (pm.response.json()).response;",
+									"",
+									"pm.test(\"Successful LIST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"    pm.expect(response.name).to.be.string;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domainName}}/contents/{{contentId}}/image",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"contents",
+								"{{contentId}}",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Content VodEvents",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bf453f43-51ee-40f1-b26c-0d43d489cdd0",
+								"exec": [
+									"let response = (pm.response.json()).response,",
+									"    limit = pm.collectionVariables.get(\"limit\"),",
+									"    vodEvent = response.items && response.items[0],",
+									"    contentId = pm.collectionVariables.get(\"contentId\");",
+									"",
+									"pm.test(\"Successful LIST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"    pm.expect(response.count).to.be.above(0);",
+									"    pm.expect(response.items.length).to.equal(parseInt(limit));",
+									"    pm.expect(vodEvent.contentId).to.equal(parseInt(contentId));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domainName}}/contents/{{contentId}}/vod-events?limit={{limit}}",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"contents",
+								"{{contentId}}",
+								"vod-events"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "ca27573b-090f-4fff-a6a5-61d3425254cf",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "d3c130e8-df98-4318-9d6c-9349e46d5e8d",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "6e4bef5a-3c99-4422-9ead-f6b6b019babc",
+			"key": "domainName",
+			"value": "localhost:3000",
+			"type": "string"
+		},
+		{
+			"id": "8d81956a-9cf3-48ae-a542-686fe1a855b8",
+			"key": "imageName",
+			"value": "Prueba Imagen 2",
+			"type": "string"
+		},
+		{
+			"id": "a6fbd444-f76f-482a-99ae-1f015a9018b8",
+			"key": "categoryName",
+			"value": "Prueba Categoria 2",
+			"type": "string"
+		},
+		{
+			"id": "ece9644c-34e1-4111-b75a-2564a64548b9",
+			"key": "contentName",
+			"value": "Prueba Contenido 2",
+			"type": "string"
+		},
+		{
+			"id": "7f3535ac-ddd8-4916-ad89-87c0dcfb120e",
+			"key": "limit",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"id": "f5dc2b38-f473-46dd-b411-f40477dbed63",
+			"key": "startDate",
+			"value": "2020-06-10T00:00:00.000Z",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

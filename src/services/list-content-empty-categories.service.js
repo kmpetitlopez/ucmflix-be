@@ -7,9 +7,13 @@ exports.listContentWithoutCategories = async (args = {}) => {
     try {
         const query = 'select contents.* from contents ' +
             'left outer join categoryReferences on contentId = contents.id ' +
-            'where categoryId is null',
+            'where categoryId is null limit :limit offset :offset',
             contentCategories = await db.sequelize.query(query, {
-                type: 'SELECT'
+                type: 'SELECT',
+                replacements: {
+                    limit: args.limit,
+                    offset: args.offset
+                }
             });
 
         return urlUtils.formatListResponse(contentCategories, args.endpoint, args);

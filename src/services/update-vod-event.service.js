@@ -3,7 +3,7 @@
 const db = require('ucmflix-db'),
     CONSTANTS = require('../common/constants');
 
-exports.updateContent = async (id, body) => {
+exports.updateVodEvent = async (id, body) => {
     try {
         if (!body || !id) {
             throw new Error(JSON.stringify({

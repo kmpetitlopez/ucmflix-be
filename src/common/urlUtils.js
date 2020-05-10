@@ -5,7 +5,6 @@ const constants = require('./constants'),
     moment = require('moment'),
     BASE_URL = process.env.BASE_URL;
 
-// eslint-disable-next-line require-jsdoc
 function _toUrlParams(args) {
     let str = '',
         isFirst = true;
@@ -21,9 +20,8 @@ function _toUrlParams(args) {
     return str;
 }
 
-// eslint-disable-next-line require-jsdoc
 function _buildPrevUrl(endpoint, args) {
-    const limit = (args && args.limit) || constants.DEFAULT_LIMIT,
+    const limit = (args && args.limit),
         _args = _.clone(args || {});
 
     if (!args || !args.offset) {
@@ -35,10 +33,9 @@ function _buildPrevUrl(endpoint, args) {
     return BASE_URL + endpoint + _toUrlParams(_args);
 }
 
-// eslint-disable-next-line require-jsdoc
 function _buildNextUrl(endpoint, args, result) {
-    const offset = (args && args.offset) || 0,
-        limit = (args && args.limit) || constants.DEFAULT_LIMIT,
+    const offset = (args && args.offset),
+        limit = (args && args.limit),
         _args = _.clone(args || {});
 
     if (offset + limit >= result.count) {
@@ -50,26 +47,23 @@ function _buildNextUrl(endpoint, args, result) {
     return BASE_URL + endpoint + _toUrlParams(_args);
 }
 
-// eslint-disable-next-line require-jsdoc
 function _formatListResponse(result, endpoint, args) {
     const response = {
         count: result.count,
-        limit: (args && args.limit) || constants.DEFAULT_LIMIT,
-        offset: (args && args.offset) || 0,
-        prev: _buildPrevUrl(endpoint, _.omit(args, 'requester', 'jwtPayload')),
-        next: _buildNextUrl(endpoint, _.omit(args, 'requester', 'jwtPayload'), result),
+        limit: (args && args.limit),
+        offset: (args && args.offset),
+        prev: _buildPrevUrl(endpoint, _.omit(args, 'requester', 'jwtPayload', 'endpoint')),
+        next: _buildNextUrl(endpoint, _.omit(args, 'requester', 'jwtPayload', 'endpoint'), result),
         items: result.rows || result
     };
 
     return response;
 }
 
-// eslint-disable-next-line require-jsdoc
 function _parseOrder(sort) {
     return sort && sort.includes('-') ? 'DESC' : 'ASC';
 }
 
-// eslint-disable-next-line require-jsdoc
 function _likePercents(args) {
     return `%${args}%`;
 }

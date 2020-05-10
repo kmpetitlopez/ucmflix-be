@@ -9,8 +9,8 @@ const db = require('ucmflix-db'),
 exports.listCategory = async (args) => {
     try {
         const query = {
-            limit: args.limit || CONSTANTS.DEFAULT_LIMIT,
-            offset: args.offset || CONSTANTS.DEFAULT_OFFSET,
+            limit: args.limit,
+            offset: args.offset,
             where: {}
         };
 

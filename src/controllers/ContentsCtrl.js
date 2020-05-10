@@ -29,7 +29,7 @@ router.post('/contents', async (req, res, next) => {
 router.get('/contents/empty-categories', async (req, res, next) => {
     try {
         const service = require('../services/list-content-empty-categories.service'),
-            response = await service.listContentWithoutCategories();
+            response = await service.listContentWithoutCategories(req && req.query);
 
         res.setHeader('Content-Type', 'application/json');
         res.end(JSON.stringify({response}));
