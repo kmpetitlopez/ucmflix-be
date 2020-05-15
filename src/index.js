@@ -5,33 +5,37 @@ const express = require('express'),
     cors = require('cors'),
     bodyParser = require('body-parser'),
     path = require('path'),
-    url = require('url'),
+    cookieSession = require('cookie-session'),
     routes = require('./controllers/routes'),
-    errorHandler = require('./middlewares/errorHandler.middleware'),
-    logger = require('./middlewares/logger.middleware'),
-    CONSTANTS = require('./common/constants');
-
-app.listen(3000, () => {
-    console.log('App listening on port 3000');
-});
+    authHelper = require('./helpers/auth'),
+    authenticationMiddleware = require('./middlewares/authentication.middleware'),
+    errorHandlerMiddleware  = require('./middlewares/errorHandler.middleware'),
+    prepareRequestMiddleware  = require('./middlewares/prepareRequest.middleware'),
+    permissionMiddleware  = require('./middlewares/permission.middleware'),
+    loggerMiddleware  = require('./middlewares/logger.middleware');
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(logger);
-app.use((req, res, next) => {
-    if (req && req.query) {
-        const URL = url.parse(req.url);
-
-        req.query.endpoint = URL && URL.pathname;
-        req.query.limit = (req.query.limit && parseInt(req.query.limit)) || CONSTANTS.DEFAULT_LIMIT;
-        req.query.offset = (req.query.offset && parseInt(req.query.offset)) || CONSTANTS.DEFAULT_OFFSET;
-    }
-
-    next();
-});
+app.use(cookieSession({
+    name: process.env.COOKIE_NAME,
+    secret: process.env.COOKIE_SECRET,
+    maxAge: process.env.COOKIE_MAX_AGE,
+}));
+app.use(authHelper.initialize());
+app.use(authHelper.session());
+app.use(loggerMiddleware);
+app.use(prepareRequestMiddleware);
+app.use(authenticationMiddleware);
+app.use(permissionMiddleware);
 
 app.use('/', routes);
 app.use('/static', express.static(path.join(__dirname, 'static')));
 
-app.use(errorHandler);
+app.use(errorHandlerMiddleware);
+
+
+
+app.listen(process.env.PORT, () => {
+    console.log(`App listening on port ${process.env.PORT}`);
+});
 

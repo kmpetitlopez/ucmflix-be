@@ -1,5 +1,7 @@
 'use strict';
 
+const CONSTANTS = require('../common/constants');
+
 module.exports = (err, req, res, next) => {
     let error;
 
@@ -11,6 +13,7 @@ module.exports = (err, req, res, next) => {
         error = JSON.parse(err.message);
         res.status(error.code).send(error.message);
     } catch (e) {
-        res.status(500).send();
+        res.status(CONSTANTS.HTTP_ERROR_CODES.INTERNAL_SERVER_ERROR)
+            .send(CONSTANTS.ERROR_MESSAGES.INTERNAL_SERVER_ERROR);
     }
 };

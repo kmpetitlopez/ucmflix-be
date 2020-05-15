@@ -6,6 +6,54 @@
 	},
 	"item": [
 		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "17b1b60c-c578-49b3-a46c-425365c3eea5",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"testAdmin\",\n\t\"password\": \"cambiame123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domainName}}/auth/login",
+							"host": [
+								"{{domainName}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
 			"name": "Images CRUD",
 			"item": [
 				{
@@ -1718,6 +1766,24 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domainName}}/auth/logout",
+					"host": [
+						"{{domainName}}"
+					],
+					"path": [
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -1744,37 +1810,37 @@
 	],
 	"variable": [
 		{
-			"id": "6e4bef5a-3c99-4422-9ead-f6b6b019babc",
+			"id": "707eb279-07f5-4b1c-a591-05981701a942",
 			"key": "domainName",
 			"value": "localhost:3000",
 			"type": "string"
 		},
 		{
-			"id": "8d81956a-9cf3-48ae-a542-686fe1a855b8",
+			"id": "9bac3690-0e7b-49e4-8e46-ae926a280b21",
 			"key": "imageName",
 			"value": "Prueba Imagen 2",
 			"type": "string"
 		},
 		{
-			"id": "a6fbd444-f76f-482a-99ae-1f015a9018b8",
+			"id": "f04908ba-c933-4ff8-8210-1a817d84b169",
 			"key": "categoryName",
 			"value": "Prueba Categoria 2",
 			"type": "string"
 		},
 		{
-			"id": "ece9644c-34e1-4111-b75a-2564a64548b9",
+			"id": "14a3730e-0798-4249-b304-6dbe074d6727",
 			"key": "contentName",
 			"value": "Prueba Contenido 2",
 			"type": "string"
 		},
 		{
-			"id": "7f3535ac-ddd8-4916-ad89-87c0dcfb120e",
+			"id": "31e50e6f-68e5-4a69-a828-dea6ea7b9ee6",
 			"key": "limit",
 			"value": "1",
 			"type": "string"
 		},
 		{
-			"id": "f5dc2b38-f473-46dd-b411-f40477dbed63",
+			"id": "34ef5323-d15d-4f25-94ba-ae93d8462619",
 			"key": "startDate",
 			"value": "2020-06-10T00:00:00.000Z",
 			"type": "string"

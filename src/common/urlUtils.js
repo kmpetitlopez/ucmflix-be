@@ -1,11 +1,12 @@
 'use strict';
 
-const constants = require('./constants'),
+const CONSTANTS = require('./constants'),
     _ = require('underscore'),
     moment = require('moment'),
-    BASE_URL = process.env.BASE_URL;
+    url = require('url'),
+    BASE_URL = process.env.BASE_URL + ':' + process.env.PORT;
 
-function _toUrlParams(args) {
+function toUrlParams(args) {
     let str = '',
         isFirst = true;
 
@@ -30,7 +31,7 @@ function _buildPrevUrl(endpoint, args) {
 
     _args.offset = Math.max(_args.offset - limit, 0);
 
-    return BASE_URL + endpoint + _toUrlParams(_args);
+    return BASE_URL + endpoint + toUrlParams(_args);
 }
 
 function _buildNextUrl(endpoint, args, result) {
@@ -44,10 +45,10 @@ function _buildNextUrl(endpoint, args, result) {
 
     _args.offset = offset + limit;
 
-    return BASE_URL + endpoint + _toUrlParams(_args);
+    return BASE_URL + endpoint + toUrlParams(_args);
 }
 
-function _formatListResponse(result, endpoint, args) {
+function formatListResponse(result, endpoint, args) {
     const response = {
         count: result.count,
         limit: (args && args.limit),
@@ -60,15 +61,23 @@ function _formatListResponse(result, endpoint, args) {
     return response;
 }
 
-function _parseOrder(sort) {
+function parseOrder(sort) {
     return sort && sort.includes('-') ? 'DESC' : 'ASC';
 }
 
-function _likePercents(args) {
+function likePercents(args) {
     return `%${args}%`;
 }
 
-module.exports.toUrlParams = _toUrlParams;
-module.exports.parseOrder = _parseOrder;
-module.exports.formatListResponse = _formatListResponse;
-module.exports.likePercents = _likePercents;
+function isAuthUrl(fullUrl) {
+    const URL = url.parse(fullUrl),
+        pathname = URL && URL.pathname;
+    
+    return CONSTANTS.AUTH_REGEX.test(pathname);
+}
+
+module.exports.toUrlParams = toUrlParams;
+module.exports.parseOrder = parseOrder;
+module.exports.formatListResponse = formatListResponse;
+module.exports.likePercents = likePercents;
+module.exports.isAuthUrl = isAuthUrl;

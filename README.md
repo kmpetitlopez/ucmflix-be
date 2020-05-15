@@ -14,7 +14,11 @@ npm ci
 ```
 NODE_ENV=development
 CONFIG_FILE=path_to_config_file
-BASE_URL=http://localhost:3000
+BASE_URL=http://localhost
+PORT=3000
+COOKIE_NAME=ucmflix
+COOKIE_SECRET=UCMFLIX-SECRET
+COOKIE_MAX_AGE=14400000
 ```
 - Configure config.json file
 
@@ -51,11 +55,15 @@ npm run start
 
 ## Dependencies
 
+- [bcrypt](https://github.com/kelektiv/node.bcrypt.js)
 - [body-parser](https://github.com/expressjs/body-parser)
+- [cookie-session](https://github.com/expressjs/cookie-session)
 - [cors](https://github.com/expressjs/cors)
+- [dotenv](https://github.com/motdotla/dotenv)
 - [express](https://github.com/expressjs/express)
 - [moment](https://github.com/moment/moment)
+- [passport](https://github.com/jaredhanson/passport)
+- [passport-local](https://github.com/jaredhanson/passport-local)
 - [underscore](https://github.com/jashkenas/underscore)
 - [sequelize](https://github.com/sequelize/sequelize)
-- [dotenv](https://github.com/motdotla/dotenv)
 - ucmflix-db

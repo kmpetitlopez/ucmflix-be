@@ -29,11 +29,32 @@ module.exports = {
         UNKNOWN_SUBERROR_MESSAGE: 'UNKNOWN_SUBERROR_MESSAGE',
         ENTITY_NOT_FOUND: 'ENTITY_NOT_FOUND',
         VALIDATION_ERROR: 'VALIDATION_ERROR',
-        INVALID_PARAMETERS: 'INVALID_PARAMETERS'
+        INVALID_PARAMETERS: 'INVALID_PARAMETERS',
+        CANNOT_LOG_IN: 'CANNOT_LOG_IN',
+        INTERNAL_SERVER_ERROR: 'INTERNAL_SERVER_ERROR',
+        UNAUTHORIZED: 'UNAUTHORIZED',
+        FORBIDDEN: 'FORBIDDEN'
+    },
+
+    SUCCESS_MESSAGES: {
+        LOGGED_IN: 'LOGGED_IN',
+        LOGGED_OUT: 'LOGGED_OUT'
     },
 
     DIRECTION: {
         next: 'next',
         prev: 'prev'
+    },
+
+    AUTH_REGEX: /\/auth\//,
+
+    PERMISSIONS: {
+        ADMIN: 'ADMIN',
+        USER: 'USER'
+    },
+
+    ALLOWED_METHODS: {
+        ADMIN: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+        USER: ['GET']
     }
 };
