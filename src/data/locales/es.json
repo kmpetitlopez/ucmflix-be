@@ -1,0 +1,8 @@
+{
+    "EMAIL": {
+        "WELCOME_EMAIL_SUBJECT": "[UCMFLIX] Bienvenido",
+        "WELCOME_EMAIL_BODY": "{{name}},<br/><br/>Para completar el proceso de registro debes confirmar tu email y crear una contraseña usando el siguiente enlace:<br/><br/><a href=\"{{{link}}}\">Confirmar cuenta y crear contraseña</a>",
+        "RESET_PASSWORD_EMAIL_SUBJECT": "[UCMFLIX] Recuperar de contraseña",
+        "RESET_PASSWORD_EMAIL_BODY": "{{name}},<br/><br/>Has solicitado resetear tu contraseña de UCMflix. Sigue el siguiente enlace para definir una contraseña nueva:<br/><br/><a href=\"{{{link}}}\">Resetear contraseña</a>"
+    }
+}

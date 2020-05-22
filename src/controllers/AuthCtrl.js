@@ -21,9 +21,45 @@ router.post('/auth/login', (req, res, next) => {
     })(req, res, next)
 })
 
-router.get('/auth/logout', function(req, res){
+router.get('/auth/logout', (req, res) => {
     req.logout();
     res.send(CONSTANTS.SUCCESS_MESSAGES.LOGGED_OUT);
+});
+
+router.post('/auth/sing-up', async (req, res, next) => {
+    try {
+        const service = require('../services/create-user.service'),
+            response = await service.createUser(req && req.body);
+
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({response}));
+    } catch (err) {
+        return next(err);
+    }
+});
+
+router.post('/auth/confirm-password', async (req, res, next) => {
+    try {
+        const service = require('../services/confirm-password.service'),
+            response = await service.confirmPassword(req && req.body);
+
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({response}));
+    } catch (err) {
+        return next(err);
+    }
+});
+
+router.post('/auth/request-password-recovery', async (req, res, next) => {
+    try {
+        const service = require('../services/request-password-recovery.service'),
+            response = await service.requestPasswordRecovery(req && req.body);
+
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({response}));
+    } catch (err) {
+        return next(err);
+    }
 });
 
 module.exports = router;

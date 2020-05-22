@@ -76,8 +76,27 @@ function isAuthUrl(fullUrl) {
     return CONSTANTS.AUTH_REGEX.test(pathname);
 }
 
+function pruneUserProperties(user) {
+    if (user) {
+        delete user.password;
+        delete user.roleId;
+    }
+
+    return user;
+}
+
+function buildFEUrl(endpoint, args = {}) {
+    if (!process.env.FE_DOMAIN) {
+        throw new Error('can\'t build a FE url without process.env.FE_DOMAIN');
+    }
+
+    return process.env.FE_DOMAIN + (endpoint || '') + toUrlParams(args);
+}
+
 module.exports.toUrlParams = toUrlParams;
 module.exports.parseOrder = parseOrder;
 module.exports.formatListResponse = formatListResponse;
 module.exports.likePercents = likePercents;
 module.exports.isAuthUrl = isAuthUrl;
+module.exports.pruneUserProperties = pruneUserProperties;
+module.exports.buildFEUrl = buildFEUrl;
