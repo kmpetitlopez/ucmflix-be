@@ -13,6 +13,7 @@ module.exports = (req, res, next) => {
     if (hasBody) {
         const body = _.clone(req.body);
         delete body.password;
+        delete body.repeatedPassword;
 
         initialLog += `[body=${JSON.stringify(body)}] `;
     }

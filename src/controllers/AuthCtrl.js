@@ -26,7 +26,7 @@ router.get('/auth/logout', (req, res) => {
     res.send(CONSTANTS.SUCCESS_MESSAGES.LOGGED_OUT);
 });
 
-router.post('/auth/sing-up', async (req, res, next) => {
+router.post('/auth/sign-up', async (req, res, next) => {
     try {
         const service = require('../services/create-user.service'),
             response = await service.createUser(req && req.body);

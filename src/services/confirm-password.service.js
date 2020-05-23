@@ -7,7 +7,7 @@ const db = require('ucmflix-db'),
 
 exports.confirmPassword = async(body, res, next) => {
     try {
-        if (!body || body.newPassword !== body.newPasswordConfirmation || !body.token) {
+        if (!body || body.password !== body.repeatedPassword || !body.token) {
             throw new Error(JSON.stringify({
                 code: CONSTANTS.HTTP_ERROR_CODES.BAD_REQUEST,
                 message: CONSTANTS.ERROR_MESSAGES.INVALID_PARAMETERS
@@ -30,7 +30,7 @@ exports.confirmPassword = async(body, res, next) => {
         }
 
         if (user) {
-            user.password = body.newPassword.toString();
+            user.password = body.password.toString();
             user.confirmedAt = moment.utc();
 
             await user.save();
