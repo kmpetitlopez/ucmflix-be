@@ -57,5 +57,7 @@ module.exports = {
     ALLOWED_METHODS: {
         ADMIN: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
         USER: ['GET']
-    }
+    },
+
+    SPECIAL_END_POINTS: ['/favorite-contents/']
 };

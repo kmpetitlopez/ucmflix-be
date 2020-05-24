@@ -10,6 +10,7 @@ module.exports = (req, res, next) => {
         req.query.endpoint = URL && URL.pathname;
         req.query.limit = (req.query.limit && parseInt(req.query.limit)) || CONSTANTS.DEFAULT_LIMIT;
         req.query.offset = (req.query.offset && parseInt(req.query.offset)) || CONSTANTS.DEFAULT_OFFSET;
+        req.query.userId = req && req.user && req.user.id;
     }
 
     next();

@@ -6,6 +6,7 @@ const Auth = require('./AuthCtrl'),
     CategoryReferences = require('./CategoryReferencesCtrl'),
     VodEvents = require('./VodEventsCtrl'),
     Images = require('./ImagesCtrl'),
+    FavoriteContents = require('./FavoriteContentsCtrl'),
     router = require('express').Router();
 
 router.use('/', Auth);
@@ -14,5 +15,6 @@ router.use('/', Categories);
 router.use('/', CategoryReferences);
 router.use('/', VodEvents);
 router.use('/', Images);
+router.use('/', FavoriteContents);
 
 module.exports = router;
