@@ -4,7 +4,7 @@ const db = require('ucmflix-db'),
     urlUtils = require('../common/urlUtils'),
     CONSTANTS = require('../common/constants');
 
-exports.listContentCategories = async (id, args) => {
+exports.listContentCategories = async (id, args = {}) => {
     try {
         if (!id) {
             throw new Error(JSON.stringify({
@@ -30,7 +30,6 @@ exports.listContentCategories = async (id, args) => {
             }));
         }
 
-        // eslint-disable-next-line one-var
         const contentCategories = await db.categoryReference.findAndCountAll(query);
 
         return urlUtils.formatListResponse(contentCategories, args.endpoint, args);

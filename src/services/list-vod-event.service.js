@@ -1,10 +1,9 @@
 'use strict';
 
 const db = require('ucmflix-db'),
-    urlUtils = require('../common/urlUtils'),
-    CONSTANTS = require('../common/constants');
+    urlUtils = require('../common/urlUtils');
 
-exports.listVodEvent = async (args) => {
+exports.listVodEvent = async (args = {}) => {
     try {
         const query = {
                 limit: args.limit,

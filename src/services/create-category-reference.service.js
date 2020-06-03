@@ -22,7 +22,6 @@ exports.createCategoryReference = async (body) => {
             }));
         }
 
-        // eslint-disable-next-line one-var
         const categoryReference = await db.categoryReference.create(body);
 
         return categoryReference.get({plain: true});
@@ -32,6 +31,8 @@ exports.createCategoryReference = async (body) => {
         switch (err.name) {
         case 'SequelizeUniqueConstraintError':
         case 'SequelizeValidationError':
+        case 'SequelizeForeignKeyConstraintError':
+        case 'SequelizeDatabaseError':
             httpError = new Error(JSON.stringify({
                 code: CONSTANTS.HTTP_ERROR_CODES.BAD_REQUEST,
                 message: CONSTANTS.ERROR_MESSAGES.VALIDATION_ERROR

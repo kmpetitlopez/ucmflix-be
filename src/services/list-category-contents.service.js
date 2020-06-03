@@ -1,4 +1,3 @@
-/* eslint-disable one-var */
 'use strict';
 
 const db = require('ucmflix-db'),
@@ -17,13 +16,21 @@ exports.listCategoryContents = async (id, args = {}) => {
         }
 
         const query = {
-            limit: args.limit,
-            offset: args.offset,
-            where: {
-                categoryId: id
+                limit: args.limit,
+                offset: args.offset,
+                where: {
+                    categoryId: id
+                },
+                include: [{model: db.content, require: true}]
             },
-            include: [{model: db.content, require: true}]
-        };
+            category = await db.category.findByPk(parseInt(id));
+
+        if (!category) {
+            throw new Error(JSON.stringify({
+                code: CONSTANTS.HTTP_ERROR_CODES.NOT_FOUND,
+                message: CONSTANTS.ERROR_MESSAGES.ENTITY_NOT_FOUND
+            }));
+        }
 
         if (args.date || args.activeContents) {
             const date = (args.date && moment.utc(args.date).format()) || moment.utc().format(),
@@ -51,16 +58,6 @@ exports.listCategoryContents = async (id, args = {}) => {
             }];
         }
 
-        const category = await db.category.findByPk(parseInt(id));
-
-        if (!category) {
-            throw new Error(JSON.stringify({
-                code: CONSTANTS.HTTP_ERROR_CODES.NOT_FOUND,
-                message: CONSTANTS.ERROR_MESSAGES.ENTITY_NOT_FOUND
-            }));
-        }
-
-        // eslint-disable-next-line one-var
         const categoryContents = await db.categoryReference.findAndCountAll(query);
 
         return urlUtils.formatListResponse(categoryContents, args.endpoint, args);

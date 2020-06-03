@@ -4,7 +4,7 @@ const db = require('ucmflix-db'),
     urlUtils = require('../common/urlUtils'),
     CONSTANTS = require('../common/constants');
 
-exports.listContentVodEvents = async (id, args) => {
+exports.listContentVodEvents = async (id, args = {}) => {
     try {
         if (!id) {
             throw new Error(JSON.stringify({
@@ -29,7 +29,6 @@ exports.listContentVodEvents = async (id, args) => {
             }));
         }
 
-        // eslint-disable-next-line one-var
         const contentVodEvents = await db.vodEvent.findAndCountAll(query);
 
         return urlUtils.formatListResponse(contentVodEvents, args.endpoint, args);

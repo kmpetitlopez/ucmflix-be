@@ -2,12 +2,10 @@
 
 const db = require('ucmflix-db'),
     COMMON_CONSTANTS = require('ucmflix-db').constants,
-    moment = require('moment'),
     urlUtils = require('../common/urlUtils'),
-    CONSTANTS = require('../common/constants'),
-    {Op} = require('sequelize');
+    CONSTANTS = require('../common/constants');
 
-exports.listContentSeasons = async (id, args) => {
+exports.listContentSeasons = async (id, args = {}) => {
     try {
         if (!id) {
             throw new Error(JSON.stringify({
@@ -50,7 +48,6 @@ exports.listContentSeasons = async (id, args) => {
             }));
         }
 
-        // eslint-disable-next-line one-var
         const contents = await db.content.findAndCountAll(query);
 
         return urlUtils.formatListResponse(contents, args.endpoint, args);

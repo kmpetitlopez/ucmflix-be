@@ -2,10 +2,9 @@
 
 const db = require('ucmflix-db'),
     urlUtils = require('../common/urlUtils'),
-    CONSTANTS = require('../common/constants'),
     {Op} = require('sequelize');
 
-exports.listImage = async (args) => {
+exports.listImage = async (args = {}) => {
     try {
         const query = {
             limit: args.limit,
@@ -13,23 +12,20 @@ exports.listImage = async (args) => {
             where: {}
         };
 
-        if (args) {
-            if (args.name) {
-                query.where.name = db.sequelize.where(
-                    db.sequelize.fn(
-                        'lower',
-                        db.sequelize.col('name')
-                    ),
-                    {
-                        [Op.like]: urlUtils.likePercents(
-                            args.name.toLowerCase()
-                        )
-                    }
-                );
-            }
+        if (args.name) {
+            query.where.name = db.sequelize.where(
+                db.sequelize.fn(
+                    'lower',
+                    db.sequelize.col('name')
+                ),
+                {
+                    [Op.like]: urlUtils.likePercents(
+                        args.name.toLowerCase()
+                    )
+                }
+            );
         }
 
-        // eslint-disable-next-line one-var
         const images = await db.image.findAndCountAll(query);
 
         return urlUtils.formatListResponse(images, args.endpoint, args);

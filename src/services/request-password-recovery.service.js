@@ -7,7 +7,7 @@ const db = require('ucmflix-db'),
     MailComposer = require('../helpers/mailComposer'),
     CONSTANTS = require('../common/constants');
 
-exports.requestPasswordRecovery = async(body, res, next) => {
+exports.requestPasswordRecovery = async(body) => {
     try {
         if (!body) {
             throw new Error(JSON.stringify({

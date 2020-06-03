@@ -33,8 +33,6 @@ app.use('/static', express.static(path.join(__dirname, 'static')));
 
 app.use(errorHandlerMiddleware);
 
-
-
 app.listen(process.env.PORT, () => {
     console.log(`App listening on port ${process.env.PORT}`);
 });

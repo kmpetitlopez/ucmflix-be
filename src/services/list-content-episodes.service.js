@@ -7,7 +7,7 @@ const db = require('ucmflix-db'),
     CONSTANTS = require('../common/constants'),
     {Op} = require('sequelize');
 
-exports.listContentEpisodes = async (id, args) => {
+exports.listContentEpisodes = async (id, args = {}) => {
     try {
         if (!id) {
             throw new Error(JSON.stringify({
@@ -40,37 +40,35 @@ exports.listContentEpisodes = async (id, args) => {
             }));
         }
 
-        if (args) {
-            if (args.date || args.activeContents) {
-                const date = (args.date && moment.utc(args.date).format()) || moment.utc().format(),
-                    where = {
-                        windowStartTime: {
-                            [Op.lte]: moment.utc(date).format()
-                        },
-                        windowEndTime: {
-                            [Op.or]: [
-                                {
-                                    [Op.is]: null
-                                },
-                                {
-                                    [Op.gt]: moment.utc(date).format()
-                                }
-                            ]
-                        }
-                    };
+        if (args.date || args.activeContents) {
+            const date = (args.date && moment.utc(args.date).format()) || moment.utc().format(),
+                where = {
+                    windowStartTime: {
+                        [Op.lte]: moment.utc(date).format()
+                    },
+                    windowEndTime: {
+                        [Op.or]: [
+                            {
+                                [Op.is]: null
+                            },
+                            {
+                                [Op.gt]: moment.utc(date).format()
+                            }
+                        ]
+                    }
+                };
 
-                query.include = [{
-                    model: db.vodEvent,
-                    require: true,
-                    where
-                }];
-            }
-
-            if (args.seasonNumber) {
-                query.where.seasonNumber = args.seasonNumber;
-            }
+            query.include = [{
+                model: db.vodEvent,
+                require: true,
+                where
+            }];
         }
-        // eslint-disable-next-line one-var
+
+        if (args.seasonNumber) {
+            query.where.seasonNumber = args.seasonNumber;
+        }
+
         const contents = await db.content.findAndCountAll(query);
 
         return urlUtils.formatListResponse(contents, args.endpoint, args);

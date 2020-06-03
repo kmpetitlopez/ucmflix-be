@@ -21,6 +21,8 @@ exports.createContent = async (body) => {
         switch (err.name) {
         case 'SequelizeUniqueConstraintError':
         case 'SequelizeValidationError':
+        case 'SequelizeForeignKeyConstraintError':
+        case 'SequelizeDatabaseError':
             httpError = new Error(JSON.stringify({
                 code: CONSTANTS.HTTP_ERROR_CODES.BAD_REQUEST,
                 message: CONSTANTS.ERROR_MESSAGES.VALIDATION_ERROR

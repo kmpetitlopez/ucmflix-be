@@ -21,7 +21,6 @@ exports.createVodEvent = async (body) => {
             }));
         }
 
-        // eslint-disable-next-line one-var
         const vodEvent = await db.vodEvent.create(body);
 
         return vodEvent.get({plain: true});
@@ -31,6 +30,8 @@ exports.createVodEvent = async (body) => {
         switch (err.name) {
         case 'SequelizeUniqueConstraintError':
         case 'SequelizeValidationError':
+        case 'SequelizeForeignKeyConstraintError':
+        case 'SequelizeDatabaseError':
             httpError = new Error(JSON.stringify({
                 code: CONSTANTS.HTTP_ERROR_CODES.BAD_REQUEST,
                 message: CONSTANTS.ERROR_MESSAGES.VALIDATION_ERROR
